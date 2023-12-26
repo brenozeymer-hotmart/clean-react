@@ -48,7 +48,7 @@ jobs:
                                 "knownIcon": "PERSON"
                               },
                               "topLabel": "Autor",
-                              "text": "${{ github.event.pull_request.user.name }}"
+                              "text": "${{ github.event.pull_request.user.email }}"
                             }
                           },
                           {
