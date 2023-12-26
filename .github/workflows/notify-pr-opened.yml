@@ -23,7 +23,7 @@ jobs:
             {
               "cardsV2": [
                 {
-                  "cardId": ${{ github.event.pull_request.node_id }},
+                  "cardId": "${{ github.event.pull_request.node_id }}",
                   "card": {
                     "header": {
                       "title": "Novo Pull Request - ${{ github.event.pull_request.base.label }}",
