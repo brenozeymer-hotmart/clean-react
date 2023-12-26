@@ -3,18 +3,9 @@ on:
   pull_request:
     types: [opened]
 jobs:
-  notify:
+  notify-on-google-chat:
     runs-on: ubuntu-latest
-
     steps:
-    - name: PR Details
-      run: |
-          echo "PR id : ${{ github.event.pull_request.id }}"
-          echo "PR node_id : ${{ github.event.pull_request.node_id }}"
-          echo "PR html_url : ${{ github.event.pull_request.html_url }}"
-          echo "PR title : ${{ github.event.pull_request.title }}"
-          echo "PR user : ${{ github.event.pull_request.user }}"
-          echo "PR base label : ${{ github.event.pull_request.base.label }}"
     - name: Google Chat Notification
       run: |
           curl --location --request POST '${{ secrets.GOOGLE_CHAT_WEBHOOK }}' \
