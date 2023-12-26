@@ -1,0 +1,75 @@
+name: Notify PR opened
+on:
+  pull_request:
+    types: [opened]
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: PR Details
+      run: |
+          echo "PR id : ${{ github.event.pull_request.id }}"
+          echo "PR node_id : ${{ github.event.pull_request.node_id }}"
+          echo "PR html_url : ${{ github.event.pull_request.html_url }}"
+          echo "PR title : ${{ github.event.pull_request.title }}"
+          echo "PR user name : ${{ github.event.pull_request.user.name }}"
+          echo "PR base label : ${{ github.event.pull_request.base.label }}"
+    # - name: Google Chat Notification
+    #   run: |
+    #       curl --location --request POST '${{ secrets.GOOGLE_CHAT_WEBHOOK }}' \
+    #       --header 'Content-Type: application/json' \
+    #       --data-raw '{
+    #           "cards": [
+    #               {
+    #                   "header": {
+    #                       "title": "Issue Tracker",
+    #                       "subtitle": "Issue No: #${{ github.event.issue.number }}"
+    #                   },
+    #                   "sections": [
+    #                       {
+    #                           "widgets": [
+    #                               {
+    #                                  "keyValue": {
+    #                                       "topLabel": "Creator",
+    #                                       "content": "${{ github.event.issue.user.login }}"
+    #                                   },
+    #                                },
+    #                                {
+    #                                  "keyValue": {
+    #                                       "topLabel": "Title",
+    #                                       "content": "${{ github.event.issue.title }}"
+    #                                   }
+    #                                },
+    #                                {
+    #                                  "keyValue": {
+    #                                       "topLabel": "Assigned Lables",
+    #                                       "content": "- ${{ join(github.event.issue.labels.*.name) }}"
+    #                                   }
+    #                                },
+    #                                {
+    #                                  "keyValue": {
+    #                                       "topLabel": "Assignees",
+    #                                       "content": "- ${{ join(github.event.issue.assignees.*.login) }}"
+    #                                   }
+    #                                },
+    #                                {
+    #                                   "buttons": [
+    #                                       {
+    #                                           "textButton": {
+    #                                               "text": "OPEN ISSUE",
+    #                                               "onClick": {
+    #                                                   "openLink": {
+    #                                                       "url": "${{ github.event.issue.html_url }}"
+    #                                                   }
+    #                                               }
+    #                                           }
+    #                                       }
+    #                                   ]
+    #                               }
+    #                           ]
+    #                       }
+    #                   ]
+    #               }
+    #           ]
+    #       }'
