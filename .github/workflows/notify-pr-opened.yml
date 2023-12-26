@@ -15,61 +15,70 @@ jobs:
           echo "PR title : ${{ github.event.pull_request.title }}"
           echo "PR user name : ${{ github.event.pull_request.user.name }}"
           echo "PR base label : ${{ github.event.pull_request.base.label }}"
-    # - name: Google Chat Notification
-    #   run: |
-    #       curl --location --request POST '${{ secrets.GOOGLE_CHAT_WEBHOOK }}' \
-    #       --header 'Content-Type: application/json' \
-    #       --data-raw '{
-    #           "cards": [
-    #               {
-    #                   "header": {
-    #                       "title": "Issue Tracker",
-    #                       "subtitle": "Issue No: #${{ github.event.issue.number }}"
-    #                   },
-    #                   "sections": [
-    #                       {
-    #                           "widgets": [
-    #                               {
-    #                                  "keyValue": {
-    #                                       "topLabel": "Creator",
-    #                                       "content": "${{ github.event.issue.user.login }}"
-    #                                   },
-    #                                },
-    #                                {
-    #                                  "keyValue": {
-    #                                       "topLabel": "Title",
-    #                                       "content": "${{ github.event.issue.title }}"
-    #                                   }
-    #                                },
-    #                                {
-    #                                  "keyValue": {
-    #                                       "topLabel": "Assigned Lables",
-    #                                       "content": "- ${{ join(github.event.issue.labels.*.name) }}"
-    #                                   }
-    #                                },
-    #                                {
-    #                                  "keyValue": {
-    #                                       "topLabel": "Assignees",
-    #                                       "content": "- ${{ join(github.event.issue.assignees.*.login) }}"
-    #                                   }
-    #                                },
-    #                                {
-    #                                   "buttons": [
-    #                                       {
-    #                                           "textButton": {
-    #                                               "text": "OPEN ISSUE",
-    #                                               "onClick": {
-    #                                                   "openLink": {
-    #                                                       "url": "${{ github.event.issue.html_url }}"
-    #                                                   }
-    #                                               }
-    #                                           }
-    #                                       }
-    #                                   ]
-    #                               }
-    #                           ]
-    #                       }
-    #                   ]
-    #               }
-    #           ]
-    #       }'
+    - name: Google Chat Notification
+      run: |
+          curl --location --request POST '${{ secrets.GOOGLE_CHAT_WEBHOOK }}' \
+          --header 'Content-Type: application/json' \
+          --data-raw '
+            {
+              "cardsV2": [
+                {
+                  "cardId": "${{ github.event.pull_request.node_id }}",
+                  "card": {
+                    "header": {
+                      "title": "Novo Pull Request - ${{ github.event.pull_request.base.label }}",
+                      "subtitle": "${{ github.event.pull_request.title }}",
+                      "imageUrl": "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png",
+
+                    },
+                    "sections": [
+                      {
+                        "collapsible": false,
+                        "uncollapsibleWidgetsCount": 0,
+                        "widgets": [
+                          {
+                            "decoratedText": {
+                              "topLabel": "Título",
+                              "text": "${{ github.event.pull_request.title }}"
+                            }
+                          },
+                          {
+                            "decoratedText": {
+                              "startIcon": {
+                                "knownIcon": "PERSON"
+                              },
+                              "topLabel": "Autor",
+                              "text": "${{ github.event.pull_request.user.name }}"
+                            }
+                          },
+                          {
+                            "decoratedText": {
+                              "startIcon": {
+                                "knownIcon": "BOOKMARK"
+                              },
+                              "topLabel": "Branch alvo",
+                              "text": "${{ github.event.pull_request.base.label }}"
+                            }
+                          },
+                          {
+                            "buttonList": {
+                              "buttons": [
+                                {
+                                  "text": "Abrir no GitHub",
+                                  "onClick": {
+                                    "openLink": {
+                                      "url": "${{ github.event.pull_request.html_url }}"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          '
