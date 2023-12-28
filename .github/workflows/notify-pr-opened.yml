@@ -20,15 +20,15 @@ jobs:
                   "cardId": "${{ github.event.pull_request.node_id }}",
                   "card": {
                     "header": {
-                      "title": "Novo Pull Request - ${{ github.event.pull_request.base.label }}",
-                      "subtitle": "${{ github.event.pull_request.title }}",
+                      "title": "Novo Pull Request - ${{ github.event.repository.name }}",
+                      "subtitle": "${{ github.event.pull_request.base.label }}",
                       "imageUrl": "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png",
 
                     },
                     "sections": [
                       {
                         "collapsible": false,
-                        "uncollapsibleWidgetsCount": 0,
+                        "uncollapsibleWidgetsCount": 1,
                         "widgets": [
                           {
                             "decoratedText": {
