@@ -61,3 +61,9 @@ jobs:
               ]
             }
           '
+  notify-on-google-chat-comments:
+    runs-on: ubuntu-latest
+    steps:
+    - name: PR Review Details
+      run: |
+          echo "PR id : ${{ github.event.review.state }}"
