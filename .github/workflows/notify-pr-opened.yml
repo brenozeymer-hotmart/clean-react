@@ -60,7 +60,7 @@ jobs:
                                 "knownIcon": "DESCRIPTION"
                               },
                               "topLabel": "Link para o GitHub",
-                              "text": "${{ github.event.pull_request.html_url }}"
+                              "text": "<a href=\"${{ github.event.pull_request.html_url }}\">${{ github.event.pull_request.html_url }}</a>"
                             }
                           },
                           {
