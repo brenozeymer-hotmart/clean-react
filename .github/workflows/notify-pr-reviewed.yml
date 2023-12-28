@@ -4,22 +4,9 @@ on:
     types: [submitted]
 jobs:
   notify-on-google-chat-approved:
-    if: github.event.review.state == 'APPROVED'
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
-    - name: PR Review Details
-      run: |
-          echo "PR id : ${{ github.event.pull_request.id }}"
-          echo "PR node_id : ${{ github.event.pull_request.node_id }}"
-          echo "PR html_url : ${{ github.event.pull_request.html_url }}"
-          echo "PR title : ${{ github.event.pull_request.title }}"
-          echo "PR user login: ${{ github.event.pull_request.user.login }}"
-          echo "PR base label : ${{ github.event.pull_request.base.label }}"
-          echo "------------------------------------"
-          echo "REVIEW id : ${{ github.event.review.node_id }}"
-          echo "REVIEW node_id : ${{ github.event.review.node_id }}"
-          echo "REVIEW state : ${{ github.event.review.state }}"
-          echo "REVIEW user login : ${{ github.event.review.user.login }}"
     - name: Google Chat Notification
       run: |
           curl --location --request POST '${{ secrets.GOOGLE_CHAT_WEBHOOK }}&messageReplyOption=REPLY_MESSAGE_OR_FAIL' \
@@ -34,7 +21,8 @@ jobs:
                   "cardId": "${{ github.event.review.node_id }}",
                   "card": {
                     "header": {
-                      "title": "Pull Request Revisado - Aprovado",
+                      "title": "Pull Request APROVADO!",
+                      "subtitle": "Revisado por ${{ github.event.review.user.login }}"
                       "imageUrl": "https://cdn-icons-png.flaticon.com/512/3472/3472620.png"
                     },
                     "sections": [
@@ -42,12 +30,6 @@ jobs:
                         "collapsible": true,
                         "uncollapsibleWidgetsCount": 0,
                         "widgets": [
-                          {
-                            "decoratedText": {
-                              "topLabel": "Revisado por",
-                              "text": "${{ github.event.review.user.login }}"
-                            }
-                          },
                           {
                             "image": {
                                 "imageUrl": "https://camo.githubusercontent.com/2b6bc82ca348cb81e1cef9a2262f08c6d534d11b630c8d2729a2d7a315cd812d/68747470733a2f2f6d65646961342e67697068792e636f6d2f6d656469612f744965434c6b423867655974572f67697068792e676966"
@@ -61,9 +43,59 @@ jobs:
               ]
             }
           '
-  notify-on-google-chat-comments:
+
+  notify-on-google-chat-commented:
+    if: github.event.review.state == 'commented'
     runs-on: ubuntu-latest
     steps:
-    - name: PR Review Details
+    - name: Google Chat Notification
       run: |
-          echo "PR id : ${{ github.event.review.state }}"
+          curl --location --request POST '${{ secrets.GOOGLE_CHAT_WEBHOOK }}&messageReplyOption=REPLY_MESSAGE_OR_FAIL' \
+          --header 'Content-Type: application/json' \
+          --data-raw '
+            {
+              "thread": {
+                "threadKey": "${{ github.event.pull_request.node_id }}"
+              },
+              "cardsV2": [
+                {
+                  "cardId": "${{ github.event.review.node_id }}",
+                  "card": {
+                    "header": {
+                      "title": "Novo comentário no PR",
+                      "subtitle": "Revisado por ${{ github.event.review.user.login }}"
+                      "imageUrl": "https://cdn-icons-png.flaticon.com/512/3472/3472620.png"
+                    }
+                  }
+                }
+              ]
+            }
+          '
+
+  notify-on-google-chat-changes-requested:
+    if: github.event.review.state == 'changes_requested'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Google Chat Notification
+      run: |
+          curl --location --request POST '${{ secrets.GOOGLE_CHAT_WEBHOOK }}&messageReplyOption=REPLY_MESSAGE_OR_FAIL' \
+          --header 'Content-Type: application/json' \
+          --data-raw '
+            {
+              "thread": {
+                "threadKey": "${{ github.event.pull_request.node_id }}"
+              },
+              "cardsV2": [
+                {
+                  "cardId": "${{ github.event.review.node_id }}",
+                  "card": {
+                    "header": {
+                      "title": "Mudanças solicitadas no PR",
+                      "subtitle": "Revisado por ${{ github.event.review.user.login }}"
+                      "imageUrl": "https://cdn-icons-png.flaticon.com/512/3472/3472620.png"
+                    }
+                  }
+                }
+              ]
+            }
+          '
