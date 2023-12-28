@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Google Chat Notification
       run: |
-          curl --location --request PATCH 'https://chat.googleapis.com/v1/spaces/${{ secrets.GOOGLE_CHAT_SPACE }}/messages/client-${{ github.event.repository.name }}-${{ github.event.pull_request.number }}?key=${{ secrets.GOOGLE_CHAT_KEY }}&token=${{ secrets.GOOGLE_CHAT_TOKEN }}&updateMask=cardsV2' \
+          curl --location --request PUT 'https://chat.googleapis.com/v1/spaces/${{ secrets.GOOGLE_CHAT_SPACE }}/messages/client-${{ github.event.repository.name }}-${{ github.event.pull_request.number }}?key=${{ secrets.GOOGLE_CHAT_KEY }}&token=${{ secrets.GOOGLE_CHAT_TOKEN }}&updateMask=cardsV2' \
           --header 'Content-Type: application/json' \
           --data-raw '
             {
