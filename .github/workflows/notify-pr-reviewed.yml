@@ -1,4 +1,4 @@
-name: Notify PR opened
+name: Notify PR review
 on:
   pull_request_review:
     types: [submitted]
@@ -30,29 +30,30 @@ jobs:
                 {
                   "cardId": "${{ github.event.pull_request.node_id }}",
                   "card": {
-                  "header": {
-                    "title": "Pull Request Revisado - Aprovado",
-                    "imageUrl": "https://cdn-icons-png.flaticon.com/512/3472/3472620.png"
-                  },
-                  "sections": [
-                    {
-                      "collapsible": true,
-                      "uncollapsibleWidgetsCount": 0,
-                      "widgets": [
-                        {
-                          "decoratedText": {
-                            "topLabel": "Revisado por",
-                            "text": "${{ github.event.review.user.login }}"
+                    "header": {
+                      "title": "Pull Request Revisado - Aprovado",
+                      "imageUrl": "https://cdn-icons-png.flaticon.com/512/3472/3472620.png"
+                    },
+                    "sections": [
+                      {
+                        "collapsible": true,
+                        "uncollapsibleWidgetsCount": 0,
+                        "widgets": [
+                          {
+                            "decoratedText": {
+                              "topLabel": "Revisado por",
+                              "text": "${{ github.event.review.user.login }}"
+                            }
+                          },
+                          {
+                            "image": {
+                                "imageUrl": "https://camo.githubusercontent.com/2b6bc82ca348cb81e1cef9a2262f08c6d534d11b630c8d2729a2d7a315cd812d/68747470733a2f2f6d65646961342e67697068792e636f6d2f6d656469612f744965434c6b423867655974572f67697068792e676966"
+                            }
                           }
-                        },
-                        {
-                          "image": {
-                              "imageUrl": "https://camo.githubusercontent.com/2b6bc82ca348cb81e1cef9a2262f08c6d534d11b630c8d2729a2d7a315cd812d/68747470733a2f2f6d65646961342e67697068792e636f6d2f6d656469612f744965434c6b423867655974572f67697068792e676966"
-                          }
-                        }
-                      ]
-                    }
-                  ]
+                        ]
+                      }
+                    ]
+                  }
                 }
               ]
             }
