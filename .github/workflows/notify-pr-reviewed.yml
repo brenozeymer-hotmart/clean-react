@@ -64,7 +64,7 @@ jobs:
                     "header": {
                       "title": "Novo comentário no PR",
                       "subtitle": "Revisado por ${{ github.event.review.user.login }}",
-                      "imageUrl": "https://www.intelligentvc.co.uk/wp-content/uploads/2015/11/animat-chat-color.gif"
+                      "imageUrl": "https://cdn-icons-png.flaticon.com/512/4953/4953360.png"
                     }
                   }
                 }
