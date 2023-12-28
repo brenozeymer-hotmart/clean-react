@@ -8,7 +8,7 @@ jobs:
     steps:
     - name: Google Chat Notification
       run: |
-          curl --location --request POST '${{ secrets.GOOGLE_CHAT_WEBHOOK }}&messageId=client-${{ github.event.pull_request.number }}&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD' \
+          curl --location --request POST '${{ secrets.GOOGLE_CHAT_WEBHOOK }}&messageId=client-${{ github.event.repository.name }}-${{ github.event.pull_request.number }}&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD' \
           --header 'Content-Type: application/json' \
           --data-raw '
             {
@@ -60,7 +60,7 @@ jobs:
                                 "knownIcon": "DESCRIPTION"
                               },
                               "topLabel": "Link para o GitHub",
-                              "text": "<a href=\"${{ github.event.pull_request.html_url }}">${{ github.event.pull_request.html_url }}</a>"
+                              "text": "<a href=\"${{ github.event.pull_request.html_url }}\">${{ github.event.pull_request.html_url }}</a>"
                             }
                           },
                           {
