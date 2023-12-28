@@ -22,7 +22,7 @@ jobs:
                   "card": {
                     "header": {
                       "title": "Pull Request APROVADO!",
-                      "subtitle": "Revisado por ${{ github.event.review.user.login }}"
+                      "subtitle": "Revisado por ${{ github.event.review.user.login }}",
                       "imageUrl": "https://cdn-icons-png.flaticon.com/512/3472/3472620.png"
                     },
                     "sections": [
@@ -63,8 +63,8 @@ jobs:
                   "card": {
                     "header": {
                       "title": "Novo comentário no PR",
-                      "subtitle": "Revisado por ${{ github.event.review.user.login }}"
-                      "imageUrl": "https://cdn-icons-png.flaticon.com/512/3472/3472620.png"
+                      "subtitle": "Revisado por ${{ github.event.review.user.login }}",
+                      "imageUrl": "https://www.intelligentvc.co.uk/wp-content/uploads/2015/11/animat-chat-color.gif"
                     }
                   }
                 }
@@ -91,8 +91,8 @@ jobs:
                   "card": {
                     "header": {
                       "title": "Mudanças solicitadas no PR",
-                      "subtitle": "Revisado por ${{ github.event.review.user.login }}"
-                      "imageUrl": "https://cdn-icons-png.flaticon.com/512/3472/3472620.png"
+                      "subtitle": "Revisado por ${{ github.event.review.user.login }}",
+                      "imageUrl": "https://fonts.gstatic.com/s/e/notoemoji/15.0/1f6a8/512.png"
                     }
                   }
                 }
