@@ -26,7 +26,7 @@ jobs:
           --header 'Content-Type: application/json' \
           --data-raw '
             {
-              "thread" {
+              "thread": {
                 "threadKey": "${{ github.event.pull_request.node_id }}"
               }
               "cardsV2": [
